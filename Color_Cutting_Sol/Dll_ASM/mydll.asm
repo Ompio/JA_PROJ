@@ -1,7 +1,7 @@
 .code
 
 FProc proc
-mov rax, 20
+mov rax, [rcx]
 ret
 FProc endp
 

@@ -4,12 +4,13 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdint>
 
 using namespace std;
 
-typedef int(__cdecl* MYPROC)(void); //definicja typu wskaznika
-typedef unsigned char byte;
-
+typedef int(__cdecl* MYPROC)(int*); //definicja typu wskaznika
+typedef int(__cdecl* MYPROC2)(int); //definicja typu wskaznika
+typedef unsigned char byte; //Użyj BYTE zamiast 
 
 struct BMPFile {
     int height;
@@ -68,7 +69,10 @@ int main(void)
         if (NULL != ProcAdd) //sprawdzamy czy funkcja sie zaladowala dobrze
         {
             fRunTimeLinkSuccess = TRUE;
-            std::cout << ProcAdd();
+
+            int* ptr = new int(35);
+            
+            cout << "adress value: " << ProcAdd(ptr);
         }
         // Free the DLL module.
         fFreeResult = FreeLibrary(hinstLib); //na koniec programu, zwalnia wskaznik na biblioteke a zarazem wszystko z nia zwiazane
@@ -78,7 +82,7 @@ int main(void)
     //fragment z cpp
 
     HINSTANCE hinstLibC; //obiekt przechowujacy biblioteke z ktorej przechwycimy procedure
-    MYPROC ProcAddC; //typ wskaznika na funkcje z argumentami wyzej
+    MYPROC2 ProcAddC; //typ wskaznika na funkcje z argumentami wyzej
     BOOL fFreeResultC, fRunTimeLinkSuccessC = FALSE;
 
     // Get a handle to the DLL module.
@@ -89,12 +93,13 @@ int main(void)
 
     if (hinstLibC != NULL) //sprawdzamy czy biblioteka sie zaladowala
     {
-        ProcAddC = (MYPROC)GetProcAddress(hinstLibC, "FProc"); //zaladowanie funkcji FProc z biblioteki do wskaznika
+        ProcAddC = (MYPROC2)GetProcAddress(hinstLibC, "FProc_int"); //zaladowanie funkcji FProc z biblioteki do wskaznika
         // If the function address is valid, call the function.
         if (NULL != ProcAddC) //sprawdzamy czy funkcja sie zaladowala dobrze
         {
             fRunTimeLinkSuccessC = TRUE;
-            std::cout << ProcAddC();
+            int i = 13;
+            std::cout << " " << ProcAddC(13);
         }
         // Free the DLL module.
         fFreeResultC = FreeLibrary(hinstLibC); //na koniec programu, zwalnia wskaznik na biblioteke a zarazem wszystko z nia zwiazane
@@ -105,7 +110,7 @@ int main(void)
     if (!fRunTimeLinkSuccess)
         printf("Message printed from executable\n");
     if (!fRunTimeLinkSuccessC)
-        printf("C Message printed from executable\n");
+        printf(" C message printed from executable\n");
 
     //BMP and threads
     BMPFile test("k.bmp");
