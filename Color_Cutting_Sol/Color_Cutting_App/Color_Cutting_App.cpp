@@ -5,6 +5,11 @@
 #include <string>
 #include <fstream>
 #include <cstdint>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -61,7 +66,6 @@ int main(void)
     hinstLib = LoadLibrary(TEXT("Dll_ASM.dll")); //zaladowanie biblioteki do obiektu
 
     // If the handle is valid, try to get the function address.
-
     if (hinstLib != NULL) //sprawdzamy czy biblioteka sie zaladowala
     {
         ProcAdd = (MYPROC)GetProcAddress(hinstLib, "FProc"); //zaladowanie funkcji FProc z biblioteki do wskaznika
@@ -72,11 +76,41 @@ int main(void)
 
             int* ptr = new int(35);
             
-            cout << "adress value: " << ProcAdd(ptr);
+            cout << "value: " << ProcAdd(ptr);
+
+
+            //Threads
+            int threadNumber;
+            cin >> threadNumber;
+            std::vector<std::thread> threads;
+            auto startT = chrono::high_resolution_clock::now();
+            for (int i = 0; i < threadNumber; i++) {
+                ptr = new int(i);
+                threads.push_back(std::thread([&ProcAdd, ptr]() {
+                    cout << "hi im thread: " << std::this_thread::get_id() << "and the value i get is: " << ProcAdd(ptr) << endl;
+                }));
+            }
+            for (auto& t : threads) t.join();
+            auto stopT = chrono::high_resolution_clock::now();
+
+            //
+
+            auto startF = chrono::high_resolution_clock::now();
+            for (int i = 0; i < threadNumber; i++) {
+                ptr = new int(i);
+                cout << "hi im: "<< i << " function call: "<< ProcAdd(ptr) << endl;
+            }
+            auto stopF = chrono::high_resolution_clock::now();
+            auto durationT = chrono::duration_cast<std::chrono::microseconds>(stopT - startT);
+            auto durationF = chrono::duration_cast<std::chrono::microseconds>(stopF - startF);
+            cout << "time elapsed from start to end for threads: " << durationT.count() << " and for for: " << durationF.count() << endl;
         }
         // Free the DLL module.
         fFreeResult = FreeLibrary(hinstLib); //na koniec programu, zwalnia wskaznik na biblioteke a zarazem wszystko z nia zwiazane
     }
+
+    
+
 
 
     //fragment z cpp
