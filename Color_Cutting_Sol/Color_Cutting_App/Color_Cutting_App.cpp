@@ -34,9 +34,9 @@ struct BMPFile {
 
 
 
-            // extract image height and width from header
             memcpy(&width, data + 18, sizeof(int));
             memcpy(&height, data + 22, sizeof(int));
+            //dopytać na zajęciach jaką funkcją to zamienić
 
             int size = ((width * 3 + 3) & (~3)) * height; //padding
             pixels = new byte[size];
