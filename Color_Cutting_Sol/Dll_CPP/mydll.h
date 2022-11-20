@@ -2,5 +2,5 @@
 
 #define EXPORT extern "C" __declspec(dllexport)
 
-EXPORT int FProc(); 
-EXPORT int FProc_int(int);
+EXPORT int FProc_test(); 
+EXPORT void FProc(BYTE*,BYTE*);
