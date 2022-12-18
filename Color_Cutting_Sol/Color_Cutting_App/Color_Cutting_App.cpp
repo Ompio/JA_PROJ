@@ -14,17 +14,17 @@
 
 //using namespace std;
 
-typedef void(__cdecl* MYPROC)(BYTE*, BYTE*); //definicja typu wskaznika
+typedef void(__cdecl* MYPROC)(BYTE*, BYTE*, BYTE*); //definicja typu wskaznika
 
 int main(void)
 {
     HINSTANCE hinstLib; //obiekt przechowujacy biblioteke z ktorej przechwycimy procedure
     MYPROC ProcAdd; //typ wskaznika na funkcje z argumentami wyzej
     BOOL fFreeResult, fRunTimeLinkSuccess = FALSE;
-    bool useCpp = true;
+    bool useCpp = false;
     BMPFile* FileA;
     BMPFile* FileB;
-    FileA = new BMPFile("understanding.bmp");  // BMPFile* FileB("c.bmp");
+    FileA = new BMPFile("4bitTest.bmp");  // BMPFile* FileB("c.bmp");
     FileB = new BMPFile(*FileA);
     
     // Get a handle to the DLL module.
@@ -60,18 +60,27 @@ int main(void)
             byte* PixelB = FileB->pixels;
 
             //tablica byte na zmiane koloru 3 elementowa i inkrementacja pierwszego byte w funkcji
+            byte colorToSeek[3] = { 29     //Wartość B
+                                    ,230   //Wartość G
+                                    ,181 };  //Wartość R
+
+            std::cout << (int) colorToSeek[0] << " " << (int)(colorToSeek[1]) << " " << (int)(colorToSeek[2]) << std::endl;
+            
+            byte colorChanged[3] = { 255    //Wartość B
+                                     ,250     //Wartość G
+                                     ,150 };   //Wartość R
 
             for (int i = 0; i < alliterations; i++) {
-                ProcAdd(PixelA + i * 3, PixelB + i * 3);
+                ProcAdd(PixelB + i * 3, colorToSeek, colorChanged);
             }
             
-            std::cout << "wys: " << wys << " szer: " << szer << " numpixels: " << numpixels << " PixelA: " << PixelA << std::endl;
+            std::cout << "wys: " << wys << " szer: " << szer << " numpixels: " << numpixels << " PixelA: " << *PixelA << std::endl;
        
             std::vector<std::thread> threads;
             auto startT = std::chrono::high_resolution_clock::now();
             for (int i = 0; i < threadNumber; i++) {
                 threads.push_back(std::thread([&ProcAdd, &PixelA, &PixelB, i]() {
-                   
+                    
                     }));
             }
             for (auto& t : threads) t.join();
