@@ -24,7 +24,7 @@ int main(void)
     bool useCpp = false;
     BMPFile* FileA;
     BMPFile* FileB;
-    FileA = new BMPFile("4bitTest.bmp");  // BMPFile* FileB("c.bmp");
+    FileA = new BMPFile("understanding.bmp");  // BMPFile* FileB("c.bmp");
     FileB = new BMPFile(*FileA);
     
     // Get a handle to the DLL module.
