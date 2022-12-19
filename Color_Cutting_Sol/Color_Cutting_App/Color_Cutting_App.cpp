@@ -24,7 +24,7 @@ int main(void)
     bool useCpp = false;
     BMPFile* FileA;
     BMPFile* FileB;
-    FileA = new BMPFile("understanding.bmp");  // BMPFile* FileB("c.bmp");
+    FileA = new BMPFile("24bitMap.bmp");  // BMPFile* FileB("c.bmp");
     FileB = new BMPFile(*FileA);
     
     // Get a handle to the DLL module.
@@ -66,11 +66,11 @@ int main(void)
 
             std::cout << (int) colorToSeek[0] << " " << (int)(colorToSeek[1]) << " " << (int)(colorToSeek[2]) << std::endl;
             
-            byte colorChanged[3] = { 255    //Wartość B
-                                     ,250     //Wartość G
-                                     ,150 };   //Wartość R
+            byte colorChanged[3] = { 78    //Wartość B
+                                     ,196     //Wartość G
+                                     ,194 };   //Wartość R
 
-            for (int i = 0; i < alliterations; i++) {
+            for (int i = 0; i < alliterations; i+=4) {
                 ProcAdd(PixelB + i * 3, colorToSeek, colorChanged);
             }
             
