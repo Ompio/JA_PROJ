@@ -15,12 +15,14 @@ void FProc(BYTE* pixel, BYTE seekedColor[], BYTE changeColor[])
 	//std::cout << (char)seekedColor[0] << (char)seekedColor[1] << (char)seekedColor[2];
 
 
-	if (*pixel == seekedColor[0] && *(pixel + 1) == seekedColor[1] && *(pixel + 2) == seekedColor[2]) {
-		
-		*pixel = changeColor[0]; //B
-		*(pixel + 1) = changeColor[1]; //G
-		*(pixel + 2) = changeColor[2]; //R
+	for (int i = 0; i < 4; i++) {
+		if (*(pixel + i * 3) == seekedColor[0] && *(pixel + 1 + i * 3) == seekedColor[1] && *(pixel + 2 + i * 3) == seekedColor[2]) {
 
+			*(pixel + i * 3) = changeColor[0]; //B
+			*(pixel + 1 + i * 3) = changeColor[1]; //G
+			*(pixel + 2 + i * 3) = changeColor[2]; //R
+
+		}
 	}
 
 }

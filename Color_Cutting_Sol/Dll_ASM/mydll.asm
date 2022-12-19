@@ -61,16 +61,15 @@ insertps xmm4, xmm2, 00110001b
 insertps xmm4, xmm2, 00100000b
 insertps xmm4, xmm2, 00010000b
 insertps xmm4, xmm2, 00000000b
-
 ;======================================================================
 ;comparing and changing
-movupd XMM6, XMM1	  ;moving value of first four pixels to XMM4
-pcmpeqd  XMM6, XMM3	  ;comparing value of XMM4(Pixels) with XMM2(maskOfColorToChange) in result XMM4 now we have in each 8bajts FFFFFFFF if it match the mask, 00000000 if it didn't
-movupd XMM7, XMM6	  ;moving result of comparison to XMM5
-andpd XMM6, XMM4	  ;execute logigal AND on XMM4 and XMM3 in result 8bajts colors that match maskOfColorToChange(was FFFFFFFF) was set to color from maskOfColorToSet
-andnpd XMM7,XMM1      ;execute logigal NOTAND on XMM5 and XMM0 in result 8bajts colors that not match maskOfColorToChange(was 00000000) was set to color from before(Pixels)
-paddq XMM6, XMM7      ;adding both resutls from XMM4 and XMM5 in restult getting 4 pixels with changed corectly colors
-movupd XMM1, XMM6     ;moving value of first four pixels back to XMM0
+movupd xmm6, xmm1	  ;moving value of first four pixels to XMM4
+pcmpeqd  xmm6, xmm3	  ;comparing value of XMM6(Pixels) with XMM3(maskOfColorToChange) in result XMM6 now we have in each 8bajts FFFFFFFF if it match the mask, 00000000 if it didn't
+movupd xmm7, xmm6	  ;moving result of comparison to XMM7
+andpd xmm6, xmm4	  ;execute logigal AND on XMM6 and XMM4 in result 8bajts colors that match maskOfColorToChange(was FFFFFFFF) was set to color from maskOfColorToSet
+andnpd xmm7,xmm1      ;execute logigal NOTAND on XMM7 and XMM1 in result 8bajts colors that not match maskOfColorToChange(was 00000000) was set to color from before(Pixels)
+paddq xmm6, xmm7      ;adding both resutls from XMM6 and XMM7 in restult getting 4 pixels with changed corectly colors
+movupd xmm1, xmm6     ;moving value of first four pixels back to XMM1
 ;======================================================================
 ;making porz¹dek
 pextrb eax, xmm1, 0
