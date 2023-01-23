@@ -20,4 +20,3 @@ public:
     void saveFile();
     void saveFile(const char* fileName);
 };
-

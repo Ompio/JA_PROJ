@@ -16,6 +16,8 @@
 
 typedef void(__cdecl* MYPROC)(BYTE*, BYTE*, BYTE*); //definicja typu wskaznika
 
+
+
 int main(void)
 {   
     std::fstream fout;
@@ -24,7 +26,7 @@ int main(void)
     std::string outfilename;
     
         
-    for (int l = 0; l <= 2; l++) {
+    for (int l = 0; l <= 0; l++) {
         if (l == 0) {
             filename = "smoll.bmp";
             fout << "smol;" << std::endl;
@@ -52,7 +54,7 @@ int main(void)
                 }
                 else fout << w << ";asm;";
 
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i < 1; i++) {
 
                     HINSTANCE hinstLib; //obiekt przechowujacy biblioteke z ktorej przechwycimy procedure
                     MYPROC ProcAdd; //typ wskaznika na funkcje z argumentami wyzej

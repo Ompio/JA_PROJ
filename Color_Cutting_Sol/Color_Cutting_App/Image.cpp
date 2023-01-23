@@ -49,3 +49,4 @@ void BMPFile::saveFile(const char* _fileName)
     }
     file.close();
 }
+
