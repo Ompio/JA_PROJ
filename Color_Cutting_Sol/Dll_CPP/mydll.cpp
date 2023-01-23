@@ -7,13 +7,6 @@ int FProc_test() {
 }
 void FProc(BYTE* pixel, BYTE seekedColor[], BYTE changeColor[])
 {
-	//*pixel = 124;	//B
-	//pixel++;
-	//*pixel = 0; //G
-	//pixel++;
-	//*pixel = 249;	//R 
-	//std::cout << (char)seekedColor[0] << (char)seekedColor[1] << (char)seekedColor[2];
-
 
 	for (int i = 0; i < 4; i++) {
 		if (*(pixel + i * 3) == seekedColor[0] && *(pixel + 1 + i * 3) == seekedColor[1] && *(pixel + 2 + i * 3) == seekedColor[2]) {
