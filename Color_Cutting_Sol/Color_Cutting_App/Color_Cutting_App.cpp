@@ -26,7 +26,7 @@ int main(void)
     std::string outfilename;
     
         
-    for (int l = 0; l <= 0; l++) {
+    for (int l = 3; l <= 3; l++) {
         if (l == 0) {
             filename = "smoll.bmp";
             fout << "smol;" << std::endl;
@@ -43,8 +43,9 @@ int main(void)
             outfilename = "cBIG.bmp";
         }
         if (l == 3) {
-            filename = "test.bmp";
-            outfilename = "ctest.bmp";
+            filename = "bardzoduzyplik.bmp";
+            fout << "vBig;" << std::endl;
+            outfilename = "cVBig.bmp";
         }
 
         for (int j = 0; j < 2; j++) {
@@ -54,7 +55,7 @@ int main(void)
                 }
                 else fout << w << ";asm;";
 
-                for (int i = 0; i < 1; i++) {
+                for (int i = 0; i < 100; i++) {
 
                     HINSTANCE hinstLib; //obiekt przechowujacy biblioteke z ktorej przechwycimy procedure
                     MYPROC ProcAdd; //typ wskaznika na funkcje z argumentami wyzej
